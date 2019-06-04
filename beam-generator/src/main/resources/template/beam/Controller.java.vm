@@ -1,0 +1,69 @@
+package ${mainPath}.${package}.modular.${moduleName}.controller;
+import ${mainPath}.${package}.${moduleName}.entity.${className};
+import ${mainPath}.${package}.${moduleName}.service.I${className}Service;
+import com.hsshy.beam.common.base.controller.BaseController;
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@Api(value="${className}Controller",tags={"${className}接口"})
+@RequestMapping("/${moduleName}/${pathName}")
+@RestController
+public class ${className}Controller extends BaseController {
+
+    @Autowired
+    private I${className}Service ${classname}Service;
+
+
+    //分页
+    @ApiOperation("分页列表")
+    @GetMapping(value = "/page/list")
+    public R pageList(${className} ${classname}){
+
+        QueryWrapper qw = new QueryWrapper<${className}>();
+
+        IPage page = ${classname}Service.page(new Page(${classname}.getCurrentPage(),${classname}.getPageSize()),qw);
+        return R.ok(page);
+    }
+    @ApiOperation("列表")
+    @GetMapping(value = "/list")
+    public R list(${className} ${classname}){
+
+        QueryWrapper qw = new QueryWrapper<${className}>();
+
+        List<${className}> ${classname}List = ${classname}Service.list(qw);
+        return R.ok(${classname}List);
+    }
+    @ApiOperation("保存")
+    @PostMapping(value = "/save")
+    public R save(@RequestBody ${className} ${classname}){
+
+            ${classname}Service.saveOrUpdate(${classname});
+        return R.ok();
+    }
+    @ApiOperation("删除")
+    @PostMapping(value = "/delete")
+    public R delete(@RequestBody Long ${classname}Ids[]){
+
+        if(ToolUtil.isEmpty(${classname}Ids)||${classname}Ids.length<=0){
+            return R.fail("未提交要删除的记录");
+        }
+            ${classname}Service.removeByIds(Arrays.asList(${classname}Ids));
+        return R.ok();
+    }
+
+
+
+
+
+
+}

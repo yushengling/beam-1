@@ -1,0 +1,18 @@
+package ${mainPath}.${package}.${moduleName}.dao;
+import ${mainPath}.${package}.${moduleName}.entity.${className};
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.ibatis.annotations.Param;
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public interface ${className}Mapper extends BaseMapper<${className}> {
+
+    IPage<${className}> selectPageList(Page page, @Param("${classname}") ${className} ${classname});
+
+}

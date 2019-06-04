@@ -1,0 +1,21 @@
+
+import http from '@/util/http'
+
+
+export default {
+    // 登录
+    getData : params => {
+        return http.get("/${moduleName}/${pathName}/page/list", params);
+    },
+    // 保存
+    save : params => {
+        return http.post("/${moduleName}/${pathName}/save", params)
+    },
+
+    // 批量删除
+    batchDelete : ids => {
+        return http.post("/${moduleName}/${pathName}/delete", ids)
+    },
+
+
+}

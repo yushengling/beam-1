@@ -1,0 +1,53 @@
+package ${mainPath}.${package}.${moduleName}.entity;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.hsshy.beam.common.base.entity.RestEntity;
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ */
+@Data
+@NoArgsConstructor
+@TableName("${tableName}")
+public class ${className} extends RestEntity<Long> {
+
+#foreach ($column in $columns)
+    #if($column.columnName!="create_time" && $column.columnName!="update_time")
+    // $column.comments
+    #end
+    #if($column.columnName == $pk.columnName)
+    @TableId
+    #end
+    #if($column.columnName != $pk.attrname && $column.columnName!="create_time" && $column.columnName!="update_time")
+    @TableField(value = "$column.columnName")
+    #end
+    #if($column.columnName!="create_time" && $column.columnName!="update_time")
+    private $column.attrType $column.attrname;
+    #end
+#end
+
+
+        @Override
+        public Long getId(){
+            return id;
+        }
+        @Override
+        public void setId(Long id){
+            this.id=id;
+        }
+        @Override
+        protected Serializable pkVal(){
+            return this.id;
+        }
+}
